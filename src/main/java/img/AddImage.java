@@ -30,17 +30,20 @@ public class AddImage extends HttpServlet {
 
 		// section of image fetching starts
 		System.out.println("In do post method of Add Image servlet.");
+		//used in order to fetch file names 
 		Part file = request.getPart("image");
-
-		String imageFileName = file.getSubmittedFileName(); // get selected image file name
+		//i the vaariable stores the file name o the iage submitted in the addimage.jsp page
+		String imageFileName = file.getSubmittedFileName();
+		//prints the relevant image file name in the console
 		System.out.println("Selected Image File Name : " + imageFileName);
-
+		//makes the image upload to the relevant path below given
 		String uploadPath = "E:/1.SLIIT/YEAR 2/SEM 1/Java_Eclipse/ImageTutorial/src/main/webapp/img/" + imageFileName; // upload																										// image
+		//prins the path of the upload
 		System.out.println("Upload Path : " + uploadPath);
 
 		// Uploading our selected image into the images folder
 		try {
-
+			//uploads to the erlevant path given in line 40 (file handling based codes)
 			FileOutputStream fos = new FileOutputStream(uploadPath);
 			InputStream is = file.getInputStream();
 
@@ -60,13 +63,16 @@ public class AddImage extends HttpServlet {
 					Class.forName("com.mysql.cj.jdbc.Driver");
 					connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/imageTutorial", "root", "#True12345");
 					PreparedStatement stmt;
+					//query to isert upload image name to database
 					String query = "insert into image(imageFileName) values(?)";
 					stmt = connection.prepareStatement(query);
+					//sets the value of imagefilename 
 					stmt.setString(1, imageFileName);
 					int row = stmt.executeUpdate(); // it returns no of rows affected.
 
 					if (row > 0) {
 						System.out.println("Image added into database successfully.\nImage name : "+imageFileName);
+						//redirects to displayImage.jsp page
 						response.sendRedirect("displayImage.jsp");
 					}
 

@@ -21,15 +21,18 @@
 	</div>
 
 	<hr>
-
+	<!-- the setted attributes in the Dimg.java servlet is accessed now --> 
 	<%
+		//the attribute named img which contains the imageid and image name setted in the Dimg.java servlet is accessd here
 		String imgFileName = (String) request.getAttribute("img");
 		String imgId = (String) request.getAttribute("id");
+		//prints the image nam in the console
 		System.out.println(imgFileName);
 	%>
 
 	<div align="center">
 			<%
+				//filenam and image id are not empty below are done
 				if (imgFileName != "" && imgId != "") {
 			%>
 			<div class="card w-100 border-0" >
